@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <ol class="breadcrumb">
+    <p>Display: </p>
+    <li><a href="{% url 'subcategory_list' object.id %}">List</a></li>
+    <li><a href="{% url 'subcategory_thumbnail' object.id %}">Thumbnail</a></li>
+    <li><a href="{% url 'subcategory_gallery' object.id %}">Gallery</a></li>
+	</ol>
+  <ol class="breadcrumb pull-right">
+    <p>Order: </p>
+    <li><a href="{% url 'subcategory_list' object.id %}">Newest</a></li>
+    <li><a href="{% url 'subcategory_highest' object.id  %}">Highest Compensation</a></li>
+    <li><a href="{% url 'subcategory_lowest' object.id  %}">Lowest Compensation</a></li>
+	</ol>
+    <a href="{% url 'create_post' object.id %}" class="btn btn-info">Create Post</a>
+  <br><br>
+  {% for post in newest %}
+    <a href="{% url 'post_detail' post.id  %}">{{ post.title | linebreaks }}</a>
+    {{ post.price }}
+    {% if post.image %}
+      <img src="{{ post.image.url }}" height="80" width="80">
+    {% endif %}
+    <br><br>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h3>Title: {{ object.title }}</h3>
+  <div><strong>Description: </strong>{{ object.description }}</strong></div>
+  <div><strong>Price: </strong>{{ object.price }}</div>
+  {% if object.image %}
+    <img src="{{ object.image.url }}">
+  {% endif %}
+  <div>{{ object.city }}</div>
+  <div><em>{{ object.created }}</em></div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <h3>Welcome {{ request.user }}</h3>
+  <h4>You are looking in {{ request.user.userprofile.city }}</h4>
+  <ul>
+  {% for category in object_list %}
+    <li>{{ category.title }}</li>
+    <ul>
+    {% for subcategory in category.subcategory_set.all %}
+    <a href="{% url 'subcategory_thumbnail' subcategory.id  %}"><li>{{ subcategory.title }}</a></li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+  </ul>
+</div>
+{% endblock %}

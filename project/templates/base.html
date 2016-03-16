@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- import -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+	<body>
+    <ul class="nav nav-pills">
+      {% if user.is_authenticated %}
+        <li role="presentation"><a href="{% url 'home' %}">Home</a></li>
+        <li role="presentation"><a href="{% url 'update_city' request.user.id %}">Update City</a></li>
+        <li role="presentation"><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li role="presentation"><a href="{% url 'index' %}">Index</a></li>
+        <li role="presentation"><a href="{% url 'home' %}">Cylons List</a></li>
+        <li role="presenataion"><a href="{% url 'login' %}">Login</a></li>
+        <li role="presentation"><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+    {% block content %}
+    {% endblock %}
+	</body>
+</html>
