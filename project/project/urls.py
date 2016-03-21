@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_view
 from django.views.static import serve
@@ -39,4 +39,5 @@ urlpatterns = [
     url(r'^subcategory/create/post/(?P<post_id>\d+)/$', login_required(views.CreatePost.as_view()), name='create_post'),
     url(r'^subcategory/highest/price/(?P<pk>\d+)/$', views.SubCategoryHighestPrice.as_view(), name='subcategory_highest'),
     url(r'^subcategory/lowest/price/(?P<pk>\d+)/$', views.SubCategoryLowestPrice.as_view(), name='subcategory_lowest'),
+    url(r'^api/', include('api.urls')),
 ]

@@ -24,6 +24,7 @@ class SubCategory(models.Model):
 
 class Post(models.Model):
     subcategory = models.ForeignKey(SubCategory)
+    user = models.ForeignKey(User)
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.FloatField()

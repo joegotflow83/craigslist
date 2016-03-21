@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import TemplateView, ListView, DetailView
 from django.core.urlresolvers import reverse
+from rest_framework.authtoken.models import Token
 
 from .models import Category, SubCategory, Post, UserProfile
 from .forms import UserCreateForm
@@ -17,6 +17,11 @@ class Home(ListView):
     """First page when user logs in"""
     model = Category
     template_name = 'main/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['token'] = Token.objects.get(user=self.request.user)
+        return context
 
 
 class SubCategoryThumbnailDetail(DetailView):
@@ -84,6 +89,7 @@ class UserCreate(CreateView):
         new_user.user = self.request.user
         new_user.save()
         UserProfile.objects.create(user=new_user, city=form.cleaned_data['city'])
+        Token.objects.create(user=new_user)
         return super().form_valid(form)
 
     def get_success_url(self):
